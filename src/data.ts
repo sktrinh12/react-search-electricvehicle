@@ -13,7 +13,7 @@ export const carData: Car[] = [
       acceleration: 6.1,
       top_speed: 201,
       year: 2018,
-      image: "/Tesla_Model_3.jpg",
+      image: "Tesla_Model_3.jpg",
     },
   },
   {
@@ -28,7 +28,7 @@ export const carData: Car[] = [
       acceleration: 7.3,
       top_speed: 160,
       year: 2019,
-      image: "/BYD_ATTO.jpg",
+      image: "BYD_ATTO.jpg",
     },
   },
   {
@@ -43,7 +43,7 @@ export const carData: Car[] = [
       acceleration: 7.7,
       top_speed: 170,
       year: 2021,
-      image: "/Kia_EV3.jpg",
+      image: "Kia_EV3.jpg",
     },
   },
   {
@@ -58,7 +58,7 @@ export const carData: Car[] = [
       "acceleration": 2.5,
       "top_speed": 200,
       "year": 2022,
-      "image": "/Tesla_Model_S.jpg"
+      "image": "Tesla_Model_S.jpg"
     }
   },
   {
@@ -73,7 +73,7 @@ export const carData: Car[] = [
       "acceleration": 8.9,
       "top_speed": 150,
       "year": 2020,
-      "image": "/Nissan_Leaf.jpg"
+      "image": "Nissan_Leaf.jpg"
     }
   },
   {
@@ -88,7 +88,7 @@ export const carData: Car[] = [
       "acceleration": 5.5,
       "top_speed": 180,
       "year": 2021,
-      "image": "/Audi_e-tron.jpg"
+      "image": "Audi_e-tron.jpg"
     }
   },
   {
@@ -103,7 +103,7 @@ export const carData: Car[] = [
       "acceleration": 6.5,
       "top_speed": 160,
       "year": 2019,
-      "image": "/Chevrolet_Bolt_EV.jpg"
+      "image": "Chevrolet_Bolt_EV.jpg"
     }
   },
   {
@@ -118,7 +118,7 @@ export const carData: Car[] = [
       "acceleration": 4.8,
       "top_speed": 180,
       "year": 2021,
-      "image": "/Ford_Mustang_Mach-E.jpg"
+      "image": "Ford_Mustang_Mach-E.jpg"
     }
   },
   {
@@ -133,7 +133,7 @@ export const carData: Car[] = [
       "acceleration": 7.6,
       "top_speed": 155,
       "year": 2020,
-      "image": "/Hyundai_Kona_Electric.jpg"
+      "image": "Hyundai_Kona_Electric.jpg"
     }
   },
   {
@@ -148,7 +148,7 @@ export const carData: Car[] = [
       "acceleration": 6.8,
       "top_speed": 160,
       "year": 2021,
-      "image": "/Volkswagen_ID.4.jpg"
+      "image": "Volkswagen_ID.4.jpg"
     }
   },
   {
@@ -163,7 +163,7 @@ export const carData: Car[] = [
       "acceleration": 3.2,
       "top_speed": 260,
       "year": 2022,
-      "image": "/Porsche_Taycan.jpg"
+      "image": "Porsche_Taycan.jpg"
     }
   },
   {
@@ -178,7 +178,7 @@ export const carData: Car[] = [
       "acceleration": 6.9,
       "top_speed": 150,
       "year": 2019,
-      "image": "/BMW_i3.jpg"
+      "image": "BMW_i3.jpg"
     }
   },
   {
@@ -193,7 +193,7 @@ export const carData: Car[] = [
       "acceleration": 5.1,
       "top_speed": 180,
       "year": 2021,
-      "image": "/Mercedes-Benz_EQC.jpg"
+      "image": "Mercedes-Benz_EQC.jpg"
     }
   },
   {
@@ -208,7 +208,7 @@ export const carData: Car[] = [
       "acceleration": 5.9,
       "top_speed": 217,
       "year": 2022,
-      "image": "/Tesla_Model_Y_Long_Range.jpg"
+      "image": "Tesla_Model_Y_Long_Range.jpg"
     }
   },
   {
@@ -223,7 +223,7 @@ export const carData: Car[] = [
       "acceleration": 7.0,
       "top_speed": 160,
       "year": 2023,
-      "image": "/BYD_DOLPHIN.jpg"
+      "image": "BYD_DOLPHIN.jpg"
     }
   },
   {
@@ -238,7 +238,7 @@ export const carData: Car[] = [
       "acceleration": 7.9,
       "top_speed": 160,
       "year": 2022,
-      "image": "/MG_MG4_Electric.jpg"
+      "image": "MG_MG4_Electric.jpg"
     }
   },
   {
@@ -253,7 +253,7 @@ export const carData: Car[] = [
       "acceleration": 3.8,
       "top_speed": 180,
       "year": 2023,
-      "image": "/BYD_SEAL.jpg"
+      "image": "BYD_SEAL.jpg"
     }
   },
   {
@@ -268,7 +268,7 @@ export const carData: Car[] = [
       "acceleration": 6.1,
       "top_speed": 200,
       "year": 2021,
-      "image": "/BMW_iX.jpg"
+      "image": "BMW_iX.jpg"
     }
   },
   {
@@ -283,7 +283,7 @@ export const carData: Car[] = [
       "acceleration": 7.8,
       "top_speed": 167,
       "year": 2022,
-      "image": "/Kia-NiroEV.jpg"
+      "image": "Kia-NiroEV.jpg"
     }
   },
   {
@@ -298,7 +298,7 @@ export const carData: Car[] = [
       "acceleration": 5.3,
       "top_speed": 180,
       "year": 2023,
-      "image": "/Volvo_EX30.jpg"
+      "image": "Volvo_EX30.jpg"
     }
   },
   {
@@ -313,7 +313,7 @@ export const carData: Car[] = [
       "acceleration": 4.6,
       "top_speed": 180,
       "year": 2023,
-      "image": "/BYD_TANG-.jpg"
+      "image": "BYD_TANG-.jpg"
     }
   },
 ];
