@@ -3,13 +3,14 @@ import { CarCardProps } from "./types";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 const AZURE_BLOB_SAS_URL = (image: string) =>
-  `https://evgreentreestorage.blob.core.windows.net/electric-vehicle-container${image}?sp=r&st=2024-09-04T16:19:37Z&se=2024-09-05T00:19:37Z&sv=2022-11-02&sr=c&sig=bU%2FIflUuWeBzLSAMDIQsjy%2F8FtKqZpcq39JmAqt5LT0%3D`;
+  `${process.env.REACT_APP_AZURE_STORAGE_URL}${image}?${process.env.REACT_APP_AZURE_SAS_TOKEN_CO}`;
 
 const CarCard: React.FC<CarCardProps> = ({ result }) => {
+
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>,
   ) => {
-    e.currentTarget.src = "https://via.placeholder.com/200"; // Fallback image URL
+    e.currentTarget.src = "https://placehold.co/400x300"; // Fallback image URL
   };
   return (
     <Card>
