@@ -40,6 +40,9 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
           {result._source.brand} {result._source.model}
         </Typography>
         <Typography variant="body2">
+          {`Year: ${result._source.year}`}
+        </Typography>
+        <Typography variant="body2">
           {`Usable Battery: ${result._source.usable_battery} kWh`}
         </Typography>
         <Typography variant="body2">
