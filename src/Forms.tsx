@@ -1,9 +1,16 @@
 import React from "react";
-import { SelectChangeEvent, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
+import {
+  SelectChangeEvent,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+} from "@mui/material";
+import { carBrands } from "./data";
 
 interface FormSortByProps {
-  sortField: string;
-  handleSortFieldChange: (event: SelectChangeEvent<string>) => void;
+  brand: string;
+  handleSortBrand: (event: SelectChangeEvent<string>) => void;
 }
 
 interface FormSortOrderProps {
@@ -11,21 +18,22 @@ interface FormSortOrderProps {
   handleSortOrderChange: (event: SelectChangeEvent<string>) => void;
 }
 
-const FormSortBy: React.FC<FormSortByProps> = ({
-  sortField,
-  handleSortFieldChange,
-}) => {
+const FormSortBy: React.FC<FormSortByProps> = ({ brand, handleSortBrand }) => {
   return (
     <FormControl fullWidth sx={{ marginBottom: 2 }}>
-      <InputLabel id="sort-field-label">Sort By</InputLabel>
       <Select
         labelId="sort-field-label"
         id="sort-field"
-        value={sortField as string}
-        onChange={handleSortFieldChange}
+        value={brand as string}
+        onChange={handleSortBrand}
       >
-        <MenuItem value="brand">Brand</MenuItem>
-        <MenuItem value="price">Price</MenuItem>
+        {/* Option to show all brands */}
+        <MenuItem value="">All Brands</MenuItem>{" "}
+        {carBrands.map((carBrand: string, index: number) => (
+          <MenuItem key={index} value={carBrand}>
+            {carBrand}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
@@ -37,15 +45,16 @@ const FormSortOrder: React.FC<FormSortOrderProps> = ({
 }) => {
   return (
     <FormControl fullWidth sx={{ marginBottom: 2 }}>
-      <InputLabel id="sort-order-label">Sort Order</InputLabel>
       <Select
         labelId="sort-order-label"
         id="sort-order"
         value={sortOrder}
         onChange={handleSortOrderChange}
       >
-        <MenuItem value="asc">Ascending</MenuItem>
-        <MenuItem value="desc">Descending</MenuItem>
+        <MenuItem value="price-asc">Price: Low to High</MenuItem>
+        <MenuItem value="price-desc">Price: High to Low</MenuItem>
+        <MenuItem value="year-asc">Year: Old to New</MenuItem>
+        <MenuItem value="year-desc">Year: New to Old</MenuItem>
       </Select>
     </FormControl>
   );
