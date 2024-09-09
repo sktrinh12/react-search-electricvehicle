@@ -17,7 +17,7 @@ export const carBrands: string[] = [
   "Volvo",
 ];
 
-export const carData: Car[] = [
+export const data: Car[] = [
   {
     _id: "1",
     _source: {
