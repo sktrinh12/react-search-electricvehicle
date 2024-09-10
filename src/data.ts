@@ -19,8 +19,7 @@ export const carBrands: string[] = [
 
 export const data: Car[] = [
   {
-    _id: "1",
-    _source: {
+    id: "1",
       brand: "Audi",
       model: "e-tron",
       price: 74999,
@@ -31,11 +30,9 @@ export const data: Car[] = [
       top_speed: 180,
       year: 2021,
       image: "Audi_e-tron.jpg",
-    },
   },
   {
-    _id: "2",
-    _source: {
+    id: "2",
       brand: "BMW",
       model: "i3",
       price: 44450,
@@ -46,11 +43,9 @@ export const data: Car[] = [
       top_speed: 150,
       year: 2019,
       image: "BMW_i3.jpg",
-    },
   },
   {
-    _id: "3",
-    _source: {
+    id: "3",
       brand: "BMW",
       model: "iX",
       price: 69905,
@@ -61,11 +56,9 @@ export const data: Car[] = [
       top_speed: 200,
       year: 2021,
       image: "BMW_iX.jpg",
-    },
   },
   {
-    _id: "4",
-    _source: {
+    id: "4",
       brand: "BYD",
       model: "Atto 3",
       price: 37195,
@@ -76,11 +69,9 @@ export const data: Car[] = [
       top_speed: 160,
       year: 2019,
       image: "BYD_ATTO.jpg",
-    },
   },
   {
-    _id: "5",
-    _source: {
+    id: "5",
       brand: "BYD",
       model: "Dolphin",
       price: 30195,
@@ -91,11 +82,9 @@ export const data: Car[] = [
       top_speed: 160,
       year: 2023,
       image: "BYD_DOLPHIN.jpg",
-    },
   },
   {
-    _id: "6",
-    _source: {
+    id: "6",
       brand: "BYD",
       model: "Seal",
       price: 48695,
@@ -106,11 +95,9 @@ export const data: Car[] = [
       top_speed: 180,
       year: 2023,
       image: "BYD_SEAL.jpg",
-    },
   },
   {
-    _id: "7",
-    _source: {
+    id: "7",
       brand: "BYD",
       model: "TANG",
       price: 69990,
@@ -121,11 +108,9 @@ export const data: Car[] = [
       top_speed: 180,
       year: 2023,
       image: "BYD_TANG-.jpg",
-    },
   },
   {
-    _id: "8",
-    _source: {
+    id: "8",
       brand: "Chevrolet",
       model: "Bolt EV",
       price: 36995,
@@ -136,11 +121,9 @@ export const data: Car[] = [
       top_speed: 160,
       year: 2019,
       image: "Chevrolet_Bolt_EV.jpg",
-    },
   },
   {
-    _id: "9",
-    _source: {
+    id: "9",
       brand: "Ford",
       model: "Mustang Mach-E",
       price: 52995,
@@ -151,11 +134,9 @@ export const data: Car[] = [
       top_speed: 180,
       year: 2021,
       image: "Ford_Mustang_Mach-E.jpg",
-    },
   },
   {
-    _id: "10",
-    _source: {
+    id: "10",
       brand: "Hyundai",
       model: "Kona Electric",
       price: 39999,
@@ -166,11 +147,9 @@ export const data: Car[] = [
       top_speed: 155,
       year: 2020,
       image: "Hyundai_Kona_Electric.jpg",
-    },
   },
   {
-    _id: "11",
-    _source: {
+    id: "11",
       brand: "Kia",
       model: "EV3",
       price: 35995,
@@ -181,11 +160,9 @@ export const data: Car[] = [
       top_speed: 170,
       year: 2021,
       image: "Kia_EV3.jpg",
-    },
   },
   {
-    _id: "12",
-    _source: {
+    id: "12",
       brand: "Kia",
       model: "Niro",
       price: 37295,
@@ -196,11 +173,9 @@ export const data: Car[] = [
       top_speed: 167,
       year: 2022,
       image: "Kia-NiroEV.jpg",
-    },
   },
   {
-    _id: "13",
-    _source: {
+    id: "13",
       brand: "Mercedes-Benz",
       model: "EQC",
       price: 67950,
@@ -211,11 +186,9 @@ export const data: Car[] = [
       top_speed: 180,
       year: 2021,
       image: "Mercedes-Benz_EQC.jpg",
-    },
   },
   {
-    _id: "14",
-    _source: {
+    id: "14",
       brand: "MG",
       model: "MG4 Electric 64",
       price: 29495,
@@ -226,11 +199,9 @@ export const data: Car[] = [
       top_speed: 160,
       year: 2022,
       image: "MG_MG4_Electric.jpg",
-    },
   },
   {
-    _id: "15",
-    _source: {
+    id: "15",
       brand: "Nissan",
       model: "Leaf",
       price: 29999,
@@ -241,11 +212,9 @@ export const data: Car[] = [
       top_speed: 150,
       year: 2020,
       image: "Nissan_Leaf.jpg",
-    },
   },
   {
-    _id: "16",
-    _source: {
+    id: "16",
       brand: "Porsche",
       model: "Taycan",
       price: 104999,
@@ -256,11 +225,9 @@ export const data: Car[] = [
       top_speed: 260,
       year: 2022,
       image: "Porsche_Taycan.jpg",
-    },
   },
   {
-    _id: "17",
-    _source: {
+    id: "17",
       brand: "Tesla",
       model: "Model 3",
       price: 39990,
@@ -271,11 +238,9 @@ export const data: Car[] = [
       top_speed: 201,
       year: 2018,
       image: "Tesla_Model_3.jpg",
-    },
   },
   {
-    _id: "18",
-    _source: {
+    id: "18",
       brand: "Tesla",
       model: "Model S",
       price: 89999,
@@ -285,12 +250,10 @@ export const data: Car[] = [
       acceleration: 2.5,
       top_speed: 200,
       year: 2022,
-      image: "Tesla_Model_S.jpg",
-    },
+      image: "Tesla_Model_S.jpg"
   },
   {
-    _id: "19",
-    _source: {
+    id: "19",
       brand: "Tesla",
       model: "Model Y Long Range",
       price: 49990,
@@ -300,12 +263,10 @@ export const data: Car[] = [
       acceleration: 5.9,
       top_speed: 217,
       year: 2022,
-      image: "Tesla_Model_Y_Long_Range.jpg",
-    },
+      image: "Tesla_Model_Y_Long_Range.jpg"
   },
   {
-    _id: "20",
-    _source: {
+    id: "20",
       brand: "Volkswagen",
       model: "ID.4",
       price: 44995,
@@ -315,12 +276,10 @@ export const data: Car[] = [
       acceleration: 6.8,
       top_speed: 160,
       year: 2021,
-      image: "Volkswagen_ID.4.jpg",
-    },
+      image: "Volkswagen_ID.4.jpg"
   },
   {
-    _id: "21",
-    _source: {
+    id: "21",
       brand: "Volvo",
       model: "EX30 Single Motor ER",
       price: 37050,
@@ -330,7 +289,6 @@ export const data: Car[] = [
       acceleration: 5.3,
       top_speed: 180,
       year: 2023,
-      image: "Volvo_EX30.jpg",
-    },
+      image: "Volvo_EX30.jpg"
   },
 ];
