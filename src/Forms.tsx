@@ -3,7 +3,6 @@ import {
   SelectChangeEvent,
   FormControl,
   MenuItem,
-  InputLabel,
   Select,
 } from "@mui/material";
 import { carBrands } from "./data";
