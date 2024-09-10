@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Box, Grid, SelectChangeEvent } from "@mui/material";
 import { Typography, CarCard } from "./Card";
 import { Car } from "./types";
-import { data } from "./data";
 import FilterPanel from "./FilterPanel";
 import Pagination from "./Pagination";
 import Loading from "./Loading";
 
-const AZURE_BACKEND_CAR_URL = "https://jsonplaceholder.typicode.com/posts";
+const AZURE_BACKEND_CAR_URL = process.env.REACT_APP_AZURE_BACKEND_CAR_URL;
 
 const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Car[]>([]);
@@ -16,11 +15,11 @@ const Search: React.FC = () => {
     "price-asc" | "price-desc" | "year-asc" | "year-desc"
   >("price-asc");
   const [priceRange, setPriceRange] = useState<number[]>([0, 200000]);
-  const [yearRange, setYearRange] = useState<number[]>([1985, 2024]);
+  const [yearRange, setYearRange] = useState<number[]>([2000, 2024]);
   const [brand, setBrand] = useState<string | "">("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const cardsPerPage = 6;
 
   const handleSortBrand = (event: SelectChangeEvent<string>) => {
@@ -45,17 +44,14 @@ const Search: React.FC = () => {
     setYearRange(newValue as number[]);
   };
 
-  {
-    /* SET CAR DATA ON MOUNT */
-  }
   useEffect(() => {
     setLoading(true);
-    fetch(AZURE_BACKEND_CAR_URL, {
+    fetch(AZURE_BACKEND_CAR_URL as string, {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
-      .then((fakeData) => {
-        console.log("Fetched data:", fakeData);
+      .then((data) => {
+        console.log("Fetched data:", data);
         setCarData(data);
       })
       .catch((err) => {
@@ -66,38 +62,35 @@ const Search: React.FC = () => {
       });
   }, []);
 
-  {
-    /* FILTER BASED ON FILTERS FOR CAR DATA (price, year, brand) */
-  }
   useEffect(() => {
     if (carData) {
       setLoading(true);
       const filteredResults = carData
         .filter(
           (car) =>
-            car._source.price >= priceRange[0] &&
-            car._source.price <= priceRange[1],
+            car.price >= priceRange[0] &&
+            car.price <= priceRange[1],
         )
         .filter(
           (car) =>
-            car._source.year >= yearRange[0] &&
-            car._source.year <= yearRange[1],
+            car.year >= yearRange[0] &&
+            car.year <= yearRange[1],
         )
-        .filter((car) => (brand ? car._source.brand === brand : true));
+        .filter((car) => (brand ? car.brand === brand : true));
 
       // Sorting based on the selected sortOrder
       switch (sortOrder) {
         case "price-asc":
-          filteredResults.sort((a, b) => a._source.price - b._source.price);
+          filteredResults.sort((a, b) => a.price - b.price);
           break;
         case "price-desc":
-          filteredResults.sort((a, b) => b._source.price - a._source.price);
+          filteredResults.sort((a, b) => b.price - a.price);
           break;
         case "year-asc":
-          filteredResults.sort((a, b) => a._source.year - b._source.year);
+          filteredResults.sort((a, b) => a.year - b.year);
           break;
         case "year-desc":
-          filteredResults.sort((a, b) => b._source.year - a._source.year);
+          filteredResults.sort((a, b) => b.year - a.year);
           break;
         default:
           break;
@@ -113,7 +106,7 @@ const Search: React.FC = () => {
       setTotalPages(Math.ceil(filteredResults.length / cardsPerPage));
       setLoading(false);
     }
-  }, [brand, priceRange, yearRange, currentPage]);
+  }, [brand, priceRange, yearRange, currentPage, carData, sortOrder]);
 
   return (
     <Box sx={{ padding: 0, margin: 0, maxWidth: "100%" }}>
@@ -140,7 +133,7 @@ const Search: React.FC = () => {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             {searchResults.map((result) => (
-              <Grid item xs={4} key={result._id}>
+              <Grid item xs={4} key={result.id}>
                 <CarCard result={result as Car} />
               </Grid>
             ))}
