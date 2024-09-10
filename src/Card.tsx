@@ -22,9 +22,9 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        image={AZURE_BLOB_SAS_URL(result._source.image)}
+        image={AZURE_BLOB_SAS_URL(result.image)}
         onError={handleImageError}
-        alt={result._source.brand}
+        alt={result.brand}
       />
       <CardContent>
         <Typography
@@ -37,28 +37,28 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
             whiteSpace: "nowrap", // Prevent text from wrapping to a new line
           }}
         >
-          {result._source.brand} {result._source.model}
+          {result.brand} {result.model}
         </Typography>
         <Typography variant="body2">
-          {`Year: ${result._source.year}`}
+          {`Year: ${result.year}`}
         </Typography>
         <Typography variant="body2">
-          {`Usable Battery: ${result._source.usable_battery} kWh`}
+          {`Usable Battery: ${result.usable_battery} kWh`}
         </Typography>
         <Typography variant="body2">
-          {`Real Range: ${result._source.real_range} kWh`}
+          {`Real Range: ${result.real_range} kWh`}
         </Typography>
         <Typography variant="body2">
-          {`Efficiency: ${result._source.efficiency} Wh/km`}
+          {`Efficiency: ${result.efficiency} Wh/km`}
         </Typography>
         <Typography variant="body2">
-          {`Acceleration: ${result._source.acceleration} sec`}
+          {`Acceleration: ${result.acceleration} sec`}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          {`Top Speed: ${result._source.top_speed} km/h`}
+          {`Top Speed: ${result.top_speed} km/h`}
         </Typography>
         <Typography variant="h4" color="text.primary">
-          {`$${result._source.price.toFixed(2)}`}
+          {`$${result.price.toFixed(2)}`}
         </Typography>
       </CardContent>
     </Card>
