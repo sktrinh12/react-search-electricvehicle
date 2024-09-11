@@ -1,19 +1,24 @@
 import React from "react";
 import { CarCardProps } from "./types";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-
-const AZURE_BLOB_SAS_URL = (image: string) =>
-  `${process.env.REACT_APP_AZURE_STORAGE_URL}${image}?${process.env.REACT_APP_AZURE_SAS_TOKEN_CO}`;
+import { useNavigate } from "react-router-dom";
+import { AZURE_BLOB_SAS_URL } from './urls'
 
 const CarCard: React.FC<CarCardProps> = ({ result }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/car-details/${result.id}`, { state: { car: result } });
+  };
 
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>,
   ) => {
     e.currentTarget.src = "https://placehold.co/400x300"; // Fallback image URL
   };
+  const [firstImage] = result.image.split(","); 
   return (
-    <Card>
+    <Card onClick={handleClick} sx={{ cursor: "pointer" }}>
       <CardMedia
         component="img"
         sx={{
@@ -22,7 +27,7 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        image={AZURE_BLOB_SAS_URL(result.image)}
+        image={AZURE_BLOB_SAS_URL(firstImage)}
         onError={handleImageError}
         alt={result.brand}
       />
@@ -39,24 +44,7 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
         >
           {result.brand} {result.model}
         </Typography>
-        <Typography variant="body2">
-          {`Year: ${result.year}`}
-        </Typography>
-        <Typography variant="body2">
-          {`Usable Battery: ${result.usable_battery} kWh`}
-        </Typography>
-        <Typography variant="body2">
-          {`Real Range: ${result.real_range} kWh`}
-        </Typography>
-        <Typography variant="body2">
-          {`Efficiency: ${result.efficiency} Wh/km`}
-        </Typography>
-        <Typography variant="body2">
-          {`Acceleration: ${result.acceleration} sec`}
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          {`Top Speed: ${result.top_speed} km/h`}
-        </Typography>
+        <Typography variant="body2">{`Year: ${result.year}`}</Typography>
         <Typography variant="h4" color="text.primary">
           {`$${result.price.toFixed(2)}`}
         </Typography>
