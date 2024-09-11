@@ -63,22 +63,14 @@ const Search: React.FC = () => {
       });
   }, []);
 
-
   // filter cars
   useEffect(() => {
-    if (carData) {
-      setLoading(true);
+    try {
       const filteredResults = carData
         .filter(
-          (car) =>
-            car.price >= priceRange[0] &&
-            car.price <= priceRange[1],
+          (car) => car.price >= priceRange[0] && car.price <= priceRange[1],
         )
-        .filter(
-          (car) =>
-            car.year >= yearRange[0] &&
-            car.year <= yearRange[1],
-        )
+        .filter((car) => car.year >= yearRange[0] && car.year <= yearRange[1])
         .filter((car) => (brand ? car.brand === brand : true));
 
       // Sorting based on the selected sortOrder
@@ -107,7 +99,8 @@ const Search: React.FC = () => {
 
       setSearchResults(paginatedResults);
       setTotalPages(Math.ceil(filteredResults.length / cardsPerPage));
-      setLoading(false);
+    } catch (err) {
+      console.error("Error filtering data:", err);
     }
   }, [brand, priceRange, yearRange, currentPage, carData, sortOrder]);
 
@@ -129,12 +122,12 @@ const Search: React.FC = () => {
         />
 
         <Grid item xs={12} md={9}>
-          <Loading loading={loading} />
           <Grid
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
+            <Loading loading={loading} />
             {searchResults.map((result) => (
               <Grid item xs={4} key={result.id}>
                 <CarCard result={result as Car} />
