@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Grid, SelectChangeEvent } from "@mui/material";
 import { Typography, CarCard } from "./Card";
 import { Car } from "./types";
+import { useCarContext } from "./CarContext";
 import FilterPanel from "./FilterPanel";
 import Pagination from "./Pagination";
 import Loading from "./Loading";
@@ -10,7 +11,7 @@ const AZURE_BACKEND_CAR_URL = process.env.REACT_APP_AZURE_BACKEND_CAR_URL;
 
 const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Car[]>([]);
-  const [carData, setCarData] = useState<Car[]>([]);
+  const { carData, setCarData } = useCarContext();
   const [sortOrder, setSortOrder] = useState<
     "price-asc" | "price-desc" | "year-asc" | "year-desc"
   >("price-asc");
@@ -46,26 +47,28 @@ const Search: React.FC = () => {
 
   // on page mount load all cars from flow backend
   useEffect(() => {
-    setLoading(true);
-    fetch(AZURE_BACKEND_CAR_URL as string, {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        //console.log("Fetched data:", data);
-        setCarData(data);
+    if (carData === null) {
+      setLoading(true);
+      fetch(AZURE_BACKEND_CAR_URL as string, {
+        headers: { "Content-Type": "application/json" },
       })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+        .then((res) => res.json())
+        .then((data) => {
+          //console.log("Fetched data:", data);
+          setCarData(data);
+        })
+        .catch((err) => {
+          console.error("Error fetching data:", err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [carData, setCarData]);
 
   // filter cars
   useEffect(() => {
-    try {
+    if (carData) {
       const filteredResults = carData
         .filter(
           (car) => car.price >= priceRange[0] && car.price <= priceRange[1],
@@ -99,8 +102,6 @@ const Search: React.FC = () => {
 
       setSearchResults(paginatedResults);
       setTotalPages(Math.ceil(filteredResults.length / cardsPerPage));
-    } catch (err) {
-      console.error("Error filtering data:", err);
     }
   }, [brand, priceRange, yearRange, currentPage, carData, sortOrder]);
 
