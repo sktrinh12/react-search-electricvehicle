@@ -1,12 +1,14 @@
 import React from "react";
 import Search from "./Search";
-import Container from "@mui/material/Container";
+import CarDetails from "./CarDetails";
+import { Routes, Route } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
-    <Container>
-      <Search />
-    </Container>
+      <Routes>
+        <Route path="/" element={<Search />} />
+        <Route path="/car-details/:id" element={<CarDetails />} />
+      </Routes>
   );
 };
 
