@@ -2,16 +2,22 @@ import React from "react";
 import { Button, Box } from "@mui/material";
 
 interface PaginationProps {
+  loading: boolean;
   totalPages: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
+  loading,
   totalPages,
   currentPage,
   setCurrentPage,
 }) => {
+  if (loading) {
+    return null;
+  }
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" mt={4}>
       <Button

@@ -13,7 +13,7 @@ const Loading: React.FC<LoadingProps> = ({ loading }) => {
         <Box
           sx={{
             position: "absolute",
-            top: "61%",
+            top: "55%",
             left: "61%",
             transform: "translate(-50%, -50%)",
             zIndex: 1,
