@@ -13,14 +13,14 @@ const Loading: React.FC<LoadingProps> = ({ loading }) => {
         <Box
           sx={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
+            top: "61%",
+            left: "61%",
             transform: "translate(-50%, -50%)",
             zIndex: 1,
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            backgroundColor: "rgba(255, 255, 255, 0)",
           }}
         >
-          <ReactLoading type="spin" color="#00BFFF" height={100} width={100} />
+          <ReactLoading type="spin" color="#1976d2" height={150} width={150} />
         </Box>
       )}
     </>
