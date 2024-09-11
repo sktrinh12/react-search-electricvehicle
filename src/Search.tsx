@@ -44,6 +44,7 @@ const Search: React.FC = () => {
     setYearRange(newValue as number[]);
   };
 
+  // on page mount load all cars from flow backend
   useEffect(() => {
     setLoading(true);
     fetch(AZURE_BACKEND_CAR_URL as string, {
@@ -51,7 +52,7 @@ const Search: React.FC = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched data:", data);
+        //console.log("Fetched data:", data);
         setCarData(data);
       })
       .catch((err) => {
@@ -62,6 +63,8 @@ const Search: React.FC = () => {
       });
   }, []);
 
+
+  // filter cars
   useEffect(() => {
     if (carData) {
       setLoading(true);
