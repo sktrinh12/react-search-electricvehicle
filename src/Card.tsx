@@ -2,10 +2,11 @@ import React from "react";
 import { CarCardProps } from "./types";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AZURE_BLOB_SAS_URL } from './urls'
+import { AZURE_BLOB_SAS_URL } from "./urls";
 
 const CarCard: React.FC<CarCardProps> = ({ result }) => {
   const navigate = useNavigate();
+  const [firstImage] = result.image.split(",");
 
   const handleClick = () => {
     navigate(`/car-details/${result.id}`, { state: { car: result } });
@@ -16,7 +17,8 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
   ) => {
     e.currentTarget.src = "https://placehold.co/400x300"; // Fallback image URL
   };
-  const [firstImage] = result.image.split(","); 
+
+
   return (
     <Card onClick={handleClick} sx={{ cursor: "pointer" }}>
       <CardMedia
