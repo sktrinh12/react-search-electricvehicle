@@ -12,6 +12,7 @@ type FilterPanelProps = {
   sortOrder: string;
   priceRange: number[];
   yearRange: number[];
+  carBrands: string[];
   handleSortBrand: (event: SelectChangeEvent<string>) => void;
   handleSortOrderChange: (event: SelectChangeEvent<string>) => void;
   handlePriceChange: (event: Event, newValue: number | number[]) => void;
@@ -23,6 +24,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   sortOrder,
   priceRange,
   yearRange,
+  carBrands,
   handleSortOrderChange,
   handleSortBrand,
   handlePriceChange,
@@ -31,7 +33,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   return (
     <Grid item xs={6} sm={4} md={3}>
       <Typography gutterBottom>Brand</Typography>
-      <FormSortBy brand={brand} handleSortBrand={handleSortBrand} />
+      <FormSortBy brand={brand} carBrands={carBrands} handleSortBrand={handleSortBrand} />
       <Typography gutterBottom>Order</Typography>
       <FormSortOrder
         sortOrder={sortOrder}
