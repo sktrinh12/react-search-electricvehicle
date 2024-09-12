@@ -7,20 +7,23 @@ import FilterPanel from "./FilterPanel";
 import Pagination from "./Pagination";
 import Loading from "./Loading";
 
-const AZURE_BACKEND_CAR_URL = process.env.REACT_APP_AZURE_BACKEND_CAR_URL;
+// PA = POWER AUTOMATE
+const PA_BACKEND_CAR_URL = process.env.REACT_APP_PA_BACKEND_CAR_URL;
+const PA_UNIQUE_CAR_BRANDS_URL = process.env.REACT_APP_PA_UNIQUE_CAR_BRANDS_URL;
 
 const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<Car[]>([]);
-  const { carData, setCarData } = useCarContext();
+  const { carData, setCarData, currentPage, setCurrentPage } = useCarContext();
   const [sortOrder, setSortOrder] = useState<
     "price-asc" | "price-desc" | "year-asc" | "year-desc"
   >("price-asc");
   const [priceRange, setPriceRange] = useState<number[]>([0, 200000]);
   const [yearRange, setYearRange] = useState<number[]>([2000, 2024]);
   const [brand, setBrand] = useState<string | "">("");
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [carBrands, setCarBrands] = useState<string[]>([]);
+
   const cardsPerPage = 6;
 
   const handleSortBrand = (event: SelectChangeEvent<string>) => {
@@ -49,7 +52,7 @@ const Search: React.FC = () => {
   useEffect(() => {
     if (carData === null) {
       setLoading(true);
-      fetch(AZURE_BACKEND_CAR_URL as string, {
+      fetch(PA_BACKEND_CAR_URL as string, {
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
@@ -105,6 +108,27 @@ const Search: React.FC = () => {
     }
   }, [brand, priceRange, yearRange, currentPage, carData, sortOrder]);
 
+  // fetch unique car brands
+  useEffect(() => {
+    const fetchCarBrands = async () => {
+      try {
+        const response = await fetch(PA_UNIQUE_CAR_BRANDS_URL as string, {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+          throw new Error("Network response error for fetching car brands list");
+        }
+
+        const data = await response.json();
+        setCarBrands(data);
+      } catch (error) {
+        console.error("Error fetching car brands:", error);
+      }
+    };
+
+    fetchCarBrands();
+  }, []);
+
   return (
     <Box sx={{ padding: 0, margin: 0, maxWidth: "100%" }}>
       <Typography variant="h4" gutterBottom>
@@ -116,6 +140,7 @@ const Search: React.FC = () => {
           sortOrder={sortOrder}
           priceRange={priceRange}
           yearRange={yearRange}
+          carBrands={carBrands}
           handleSortOrderChange={handleSortOrderChange}
           handleSortBrand={handleSortBrand}
           handlePriceChange={handlePriceChange}
