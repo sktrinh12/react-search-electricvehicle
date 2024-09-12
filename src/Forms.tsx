@@ -5,10 +5,11 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { carBrands } from "./data";
+//import { carBrands } from "./data";
 
 interface FormSortByProps {
   brand: string;
+  carBrands: string[];
   handleSortBrand: (event: SelectChangeEvent<string>) => void;
 }
 
@@ -17,7 +18,7 @@ interface FormSortOrderProps {
   handleSortOrderChange: (event: SelectChangeEvent<string>) => void;
 }
 
-const FormSortBy: React.FC<FormSortByProps> = ({ brand, handleSortBrand }) => {
+const FormSortBy: React.FC<FormSortByProps> = ({ brand, handleSortBrand, carBrands }) => {
   return (
     <FormControl fullWidth sx={{ marginBottom: 2 }}>
       <Select
