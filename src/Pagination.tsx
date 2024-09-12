@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Box } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  ArrowBack,
+  ArrowForward,
+  KeyboardDoubleArrowLeftRounded,
+  KeyboardDoubleArrowRightRounded,
+} from "@mui/icons-material";
 
 interface PaginationProps {
   loading: boolean;
@@ -14,63 +20,75 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
+  const theme = useTheme();
+
   if (loading) {
     return null;
   }
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" mt={4}>
-      <Button
+      {/* First Page Button */}
+      <IconButton
         onClick={() => setCurrentPage(1)}
         disabled={currentPage === 1}
         sx={{
-          textTransform: "none",
-          padding: "22px 14px",
           "&:hover": {
-            backgroundColor: "#b0b0b0",
+            backgroundColor: theme.palette.primary.main,
           },
         }}
       >
-        1 &laquo;
-      </Button>
-      <Button
+        <Box display="flex" alignItems="center">
+          <KeyboardDoubleArrowLeftRounded sx={{ fontSize: 40 }} />
+          <Typography variant="body2" sx={{ marginLeft: 1, fontSize: 20 }}>
+            1
+          </Typography>
+        </Box>
+      </IconButton>
+
+      {/* Previous Page Button */}
+      <IconButton
         onClick={() => setCurrentPage(currentPage - 1)}
         disabled={currentPage === 1}
         sx={{
-          fontSize: "2rem",
           "&:hover": {
-            backgroundColor: "#b0b0b0",
+            backgroundColor: theme.palette.primary.main,
           },
         }}
       >
-        &lsaquo;
-      </Button>
+        <ArrowBack sx={{ fontSize: 40 }} />
+      </IconButton>
 
-      <Button
+      {/* Next Page Button */}
+      <IconButton
         onClick={() => setCurrentPage(currentPage + 1)}
         disabled={currentPage === totalPages}
         sx={{
-          fontSize: "2rem",
           "&:hover": {
-            backgroundColor: "#b0b0b0",
+            backgroundColor: theme.palette.primary.main,
           },
         }}
       >
-        &rsaquo;
-      </Button>
-      <Button
+        <ArrowForward sx={{ fontSize: 40 }} />
+      </IconButton>
+
+      {/* Last Page Button */}
+      <IconButton
         onClick={() => setCurrentPage(totalPages)}
         disabled={currentPage === totalPages}
         sx={{
-          textTransform: "none",
-          padding: "22px 14px",
           "&:hover": {
-            backgroundColor: "#b0b0b0",
+            backgroundColor:  theme.palette.primary.main,
           },
         }}
       >
-        {totalPages} »
-      </Button>
+        <Box display="flex" alignItems="center">
+          <KeyboardDoubleArrowRightRounded sx={{ fontSize: 40 }} />
+          <Typography variant="body2" sx={{ marginLeft: 1, fontSize: 20 }}>
+            {totalPages}
+          </Typography>
+        </Box>
+      </IconButton>
     </Box>
   );
 };
