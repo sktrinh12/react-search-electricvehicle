@@ -59,9 +59,14 @@ const CarDetails = () => {
             paddingY: 1.5,
             marginTop: 2,
             marginBottom: 3,
+            borderColor: "#17292e", // Border color for the outlined variant
+            color: "#17292e", // Text color
+            "&:hover": {
+              borderColor: "#17292e", // Border color on hover
+              backgroundColor: "#ecf0f1", // Background color on hover
+            },
           }}
           variant="outlined"
-          color="primary"
         >
           Back to Cars
         </Button>
@@ -174,6 +179,7 @@ const CarDetails = () => {
           flexGrow: 1,
           justifyContent: "center",
           alignItems: "center",
+          marginBottom: "75px",
         }}
         container
         spacing={2}
