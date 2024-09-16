@@ -18,9 +18,19 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
     e.currentTarget.src = "https://placehold.co/400x300"; // Fallback image URL
   };
 
-
   return (
-    <Card onClick={handleClick} sx={{ cursor: "pointer" }}>
+    <Card
+      onClick={handleClick}
+      sx={{
+        cursor: "pointer",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease", // Smooth transition for hover effects
+        "&:hover": {
+          backgroundColor: "#ecf0f1", // Change this to your desired hover color
+          transform: "scale(1.05)", // Slight magnification effect
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)", // Box shadow around edges
+        },
+      }}
+    >
       <CardMedia
         component="img"
         sx={{
