@@ -200,7 +200,11 @@ const CarDetails = () => {
                 "Top Speed (km/h)": car.top_speed,
               }).map(([label, value]) => (
                 <React.Fragment key={label}>
-                  <Grid item xs={6} className="cell">
+                  <Grid
+                    item
+                    xs={6}
+                    sx={{ padding: "4px", borderBottom: "1px solid #ccc" }}
+                  >
                     <Typography>
                       <strong>{label}</strong>
                     </Typography>
