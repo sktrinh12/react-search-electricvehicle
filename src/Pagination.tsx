@@ -1,11 +1,14 @@
 import React from "react";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import {
   ArrowBack,
   ArrowForward,
   KeyboardDoubleArrowLeftRounded,
   KeyboardDoubleArrowRightRounded,
 } from "@mui/icons-material";
+
+const BACKGROUND_COLOUR = "#17292e";
+const SELECT_COLOUR = "#fff";
 
 interface PaginationProps {
   loading: boolean;
@@ -20,8 +23,6 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   setCurrentPage,
 }) => {
-  const theme = useTheme();
-
   if (loading) {
     return null;
   }
@@ -34,7 +35,13 @@ const Pagination: React.FC<PaginationProps> = ({
         disabled={currentPage === 1}
         sx={{
           "&:hover": {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: BACKGROUND_COLOUR,
+            "& .MuiSvgIcon-root": {
+              color: SELECT_COLOUR,
+            },
+            "& .MuiTypography-root": {
+              color: SELECT_COLOUR,
+            },
           },
         }}
       >
@@ -52,7 +59,10 @@ const Pagination: React.FC<PaginationProps> = ({
         disabled={currentPage === 1}
         sx={{
           "&:hover": {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: BACKGROUND_COLOUR,
+            "& .MuiSvgIcon-root": {
+              color: SELECT_COLOUR,
+            },
           },
         }}
       >
@@ -65,7 +75,10 @@ const Pagination: React.FC<PaginationProps> = ({
         disabled={currentPage === totalPages}
         sx={{
           "&:hover": {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: BACKGROUND_COLOUR,
+            "& .MuiSvgIcon-root": {
+              color: SELECT_COLOUR,
+            },
           },
         }}
       >
@@ -78,7 +91,13 @@ const Pagination: React.FC<PaginationProps> = ({
         disabled={currentPage === totalPages}
         sx={{
           "&:hover": {
-            backgroundColor:  theme.palette.primary.main,
+            backgroundColor: BACKGROUND_COLOUR,
+            "& .MuiSvgIcon-root": {
+              color: SELECT_COLOUR,
+            },
+            "& .MuiTypography-root": {
+              color: SELECT_COLOUR,
+            },
           },
         }}
       >
