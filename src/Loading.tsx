@@ -1,6 +1,9 @@
 import React from "react";
 import { Box } from "@mui/material";
-import ReactLoading from "react-loading";
+import CircularProgress, {
+  circularProgressClasses,
+} from "@mui/material/CircularProgress";
+import { COLOUR } from "./Colour";
 
 interface LoadingProps {
   loading: boolean;
@@ -20,7 +23,21 @@ const Loading: React.FC<LoadingProps> = ({ loading }) => {
             backgroundColor: "rgba(255, 255, 255, 0)",
           }}
         >
-          <ReactLoading type="spin" color="#1976d2" height={150} width={150} />
+          <CircularProgress
+            variant="indeterminate"
+            disableShrink
+            sx={{
+              color: COLOUR,
+              animationDuration: "550ms",
+              position: "absolute",
+              left: 0,
+              [`& .${circularProgressClasses.circle}`]: {
+                strokeLinecap: "round",
+              },
+            }}
+            size={100}
+            thickness={5}
+          />
         </Box>
       )}
     </>
