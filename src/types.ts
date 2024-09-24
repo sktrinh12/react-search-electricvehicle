@@ -15,3 +15,11 @@ export type Car = {
 export type CarCardProps = {
   result: Car;
 };
+
+export interface CartItem {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
