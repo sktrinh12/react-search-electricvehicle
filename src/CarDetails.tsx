@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Grid, Box, IconButton, Typography } from "@mui/material";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { ArrowBack, ArrowForward, AddShoppingCart } from "@mui/icons-material";
 import ContactSeller from "./Contact";
 import { contactData } from "./data";
 import { AZURE_BLOB_SAS_URL } from "./urls";
+import { CartItem } from "./types";
+import ShoppingCartHeader from "./ShoppingCartHeader";
+import { useCart } from "./CartContext";
+import BackButton from "./BackButton";
+import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import { COLOUR } from "./Colour";
 
 const CarDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const car = location.state?.car;
+  const [open, setOpen] = useState(false);
+  const { cart, setCart } = useCart();
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [imageArray, setImageArray] = useState<string[]>([]);
@@ -36,6 +45,44 @@ const CarDetails = () => {
     );
   };
 
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason,
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const addToCart = (id: number, delta: number) => {
+    const existingCar = cart.find((item) => item.id === id);
+    let updatedCart;
+
+    if (existingCar) {
+      updatedCart = cart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, existingCar.quantity + delta) }
+          : item,
+      );
+    } else {
+      const { id, brand, model, price, image } = car;
+      const newCartItem: CartItem = {
+        id: id,
+        name: `${brand} ${model}`,
+        price: price,
+        image: image,
+        quantity: 1, // Default quantity
+      };
+      updatedCart = [...cart, newCartItem];
+    }
+    setOpen(true);
+    //console.log(`${car.brand} ${car.model} added`);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   return (
     <Box
       sx={{
@@ -43,33 +90,13 @@ const CarDetails = () => {
         textAlign: "center",
       }}
     >
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          padding: 2,
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          onClick={handleBack}
-          sx={{
-            textTransform: "none", // Disable uppercase text
-            paddingX: 4,
-            paddingY: 1.5,
-            marginTop: 2,
-            marginBottom: 3,
-            borderColor: "#17292e", // Border color for the outlined variant
-            color: "#17292e", // Text color
-            "&:hover": {
-              borderColor: "#17292e", // Border color on hover
-              backgroundColor: "#ecf0f1", // Background color on hover
-            },
-          }}
-          variant="outlined"
-        >
-          Back to Cars
-        </Button>
+      <Grid container alignItems="center" justifyContent="space-between">
+        <Grid item>
+          <BackButton handleBack={handleBack} />
+        </Grid>
+        <Grid item>
+          <ShoppingCartHeader />
+        </Grid>
       </Grid>
 
       <Grid container spacing={2} sx={{ justifyContent: "center" }}>
@@ -107,6 +134,9 @@ const CarDetails = () => {
                   height: "100%",
                   objectFit: "cover",
                   objectPosition: "center",
+                }}
+                onError={(e) => {
+                  e.currentTarget.src = "https://placehold.co/400x300";
                 }}
               />
             )}
@@ -168,6 +198,46 @@ const CarDetails = () => {
               >
                 ${car.price}
               </Typography>
+              <Button
+                onClick={() => addToCart(car.id, 1)}
+                variant="outlined"
+                sx={{
+                  borderColor: COLOUR,
+                  color: COLOUR,
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: 2,
+                  "&:hover": {
+                    borderColor: COLOUR,
+                    backgroundColor: `${COLOUR}25`,
+                    color: COLOUR,
+                  },
+                }}
+              >
+                <AddShoppingCart sx={{ fontSize: 100 }} />
+                <Typography
+                  fontSize="large"
+                  variant="caption"
+                  sx={{ marginTop: 1, padding: 2 }}
+                >
+                  Add to Cart
+                </Typography>
+              </Button>
+
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                >
+                  {`${car.brand} ${car.model} added`}
+                </Alert>
+              </Snackbar>
             </Box>
           </Box>
         </Grid>
