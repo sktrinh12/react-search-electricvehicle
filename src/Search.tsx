@@ -6,6 +6,7 @@ import { useCarContext } from "./CarContext";
 import FilterPanel from "./FilterPanel";
 import Pagination from "./Pagination";
 import Loading from "./Loading";
+import ShoppingCartHeader from "./ShoppingCartHeader";
 
 // PA = POWER AUTOMATE
 const PA_BACKEND_CAR_URL = process.env.REACT_APP_PA_BACKEND_CAR_URL;
@@ -116,7 +117,9 @@ const Search: React.FC = () => {
           headers: { "Content-Type": "application/json" },
         });
         if (!response.ok) {
-          throw new Error("Network response error for fetching car brands list");
+          throw new Error(
+            "Network response error for fetching car brands list",
+          );
         }
 
         const data = await response.json();
@@ -131,9 +134,16 @@ const Search: React.FC = () => {
 
   return (
     <Box sx={{ padding: 0, margin: 0, maxWidth: "100%" }}>
-      <Typography variant="h4" gutterBottom>
-        EV Search
-      </Typography>
+      <Grid container alignItems="center" justifyContent="space-between">
+        <Grid item>
+          <Typography variant="h4" gutterBottom>
+            EV Search
+          </Typography>
+        </Grid>
+        <Grid item>
+          <ShoppingCartHeader />
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <FilterPanel
           brand={brand}
