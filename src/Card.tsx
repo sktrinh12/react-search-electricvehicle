@@ -3,6 +3,7 @@ import { CarCardProps } from "./types";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AZURE_BLOB_SAS_URL } from "./urls";
+import { formatCurrency } from "./functions"
 
 const CarCard: React.FC<CarCardProps> = ({ result }) => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
         </Typography>
         <Typography variant="body2">{`Year: ${result.year}`}</Typography>
         <Typography variant="h4" color="text.primary">
-          {`$${result.price.toFixed(2)}`}
+          {formatCurrency(result.price)}
         </Typography>
       </CardContent>
     </Card>
