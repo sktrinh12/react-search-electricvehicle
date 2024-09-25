@@ -4,13 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { Delete, Add, Remove } from "@mui/icons-material";
 import { CartItem } from "./types";
 import { useCart } from "./CartContext";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 import BackButton from "./BackButton";
+import { shippingRates } from "./data";
+import CountrySelect from "./CountrySelect";
+import {formatCurrency} from "./functions"
+import { COLOUR } from "./Colour";
 
 const Cart: React.FC = () => {
   const { cart, setCart } = useCart();
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [estimatedTax, setEstimatedTax] = useState(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [subtotal, setSubtotal] = useState<number>(0);
+  const [estimatedTax, setEstimatedTax] = useState<number>(0);
+  const [shippingCost, setShippingCost] = useState<number>(0);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const navigate = useNavigate();
+  const totalCars = cart.length;
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
@@ -26,12 +37,34 @@ const Cart: React.FC = () => {
   };
 
   const calculateTotal = (updatedCart: CartItem[]) => {
-    const total = updatedCart.reduce(
+    const subtotal = updatedCart.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0,
     );
-    setTotalPrice(total);
-    setEstimatedTax(total * 0.1); // Assume 10% tax
+    setSubtotal(subtotal);
+    const newTotalQuantity = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
+    setTotalQuantity(newTotalQuantity);
+    const shippingCost = calculateShippingCost(selectedCountry) * newTotalQuantity;
+    setShippingCost(shippingCost);
+    const tax = subtotal * 0.1;
+    setEstimatedTax(tax); // Assume 10% tax
+    setTotalPrice(subtotal+shippingCost+tax);
+  };
+
+  const calculateShippingCost = (country: string): number => {
+    const rate =
+      shippingRates[country as keyof typeof shippingRates] ||
+      shippingRates.default;
+    return rate.baseRate * rate.weightMultiplier;
+  };
+
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const country = event.target.value;
+    setSelectedCountry(country);
+    const newShippingCost = calculateShippingCost(country);
+    setShippingCost(newShippingCost);
+    const updatedTotalPrice = subtotal + newShippingCost + estimatedTax;
+    setTotalPrice(updatedTotalPrice);
   };
 
   const updateQuantity = (id: number, delta: number) => {
@@ -54,14 +87,37 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      <Grid container alignItems="center" justifyContent="space-between">
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        spacing={2}
+      >
         <Grid item>
           <BackButton handleBack={handleBack} />
         </Grid>
+
         <Grid item>
-          <Typography variant="h4" gutterBottom>
-            Shopping Cart
-          </Typography>
+          <Grid container alignItems="center">
+            {/* Stacked sub-caption (Cars and Qty) */}
+            <Grid item>
+              <Stack spacing={1}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="body1">Types of Cars:</Typography>
+                  <Chip label={totalCars} variant="outlined" />
+                </Stack>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="body1">Total Qty:</Typography>
+                  <Chip label={totalQuantity} variant="outlined" />
+                </Stack>
+              </Stack>
+            </Grid>
+
+            {/* Title (Shopping Cart) */}
+            <Grid item sx={{ ml: 2 }}>
+              <Typography variant="h2">Shopping Cart</Typography>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       {cart.length > 0 ? (
@@ -77,14 +133,14 @@ const Cart: React.FC = () => {
                         alt={item.name}
                         width="100%"
                         onError={(e) => {
-                          e.currentTarget.src = "https://placehold.co/400x300"; // Fallback image URL
+                          e.currentTarget.src = "https://placehold.co/400x300";
                         }}
                       />
                     </Grid>
                     <Grid item xs={8}>
                       <Typography variant="h6">{item.name}</Typography>
                       <Typography variant="body1">
-                        Price: ${item.price}
+                        Price: {formatCurrency(item.price)}
                       </Typography>
                       <Typography variant="body1">
                         Quantity: {item.quantity}
@@ -106,14 +162,40 @@ const Cart: React.FC = () => {
               </Card>
             </Grid>
           ))}
-          <Grid item xs={12}>
-            <Typography variant="h6">Total: ${totalPrice}</Typography>
-            <Typography variant="body1">
-              Estimated Tax: ${estimatedTax.toFixed(2)}
-            </Typography>
-            <Typography variant="h5">
-              Final Total: ${(totalPrice + estimatedTax).toFixed(2)}
-            </Typography>
+          <Grid container sx={{ padding: 2 }}>
+            <Grid item xs={6} spacing={2}>
+              <Stack spacing={2}>
+                <Typography variant="h6">Ship to Country:</Typography>
+                <CountrySelect
+                  selectedCountry={selectedCountry}
+                  handleCountryChange={handleCountryChange}
+                />
+                <Typography variant="h6">
+                  Sub Total: {formatCurrency(subtotal)}
+                </Typography>
+                <Typography variant="body1">
+                  Shipping Rate: {formatCurrency(shippingCost)}
+                </Typography>
+                <Typography variant="body1">
+                  Estimated Tax: {formatCurrency(estimatedTax)}
+                </Typography>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="h5">Final Total:</Typography>
+                  <Chip
+                    label={formatCurrency(totalPrice)}
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: COLOUR,
+                      color: "white",
+                      fontWeight: "bold",
+                      padding: "12px 24px",
+                      boxShadow: 2,
+                      fontSize: "1.25rem",
+                    }}
+                  />
+                </Stack>
+              </Stack>
+            </Grid>
           </Grid>
         </Grid>
       ) : (
