@@ -18,7 +18,7 @@ const CarDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const car = location.state?.car;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const { cart, setCart } = useCart();
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
