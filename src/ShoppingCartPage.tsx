@@ -170,7 +170,6 @@ const Cart: React.FC = () => {
           <Grid container sx={{ padding: 2 }}>
             <Grid item xs={6} spacing={2}>
               <Stack spacing={2}>
-                <Typography variant="h6">Ship to Country:</Typography>
                 <CountrySelect
                   selectedCountry={selectedCountry}
                   handleCountryChange={handleCountryChange}
