@@ -1,40 +1,55 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { countries } from "./data";
+import { COLOUR } from "./Colour";
 
 interface CountrySelectProps {
   selectedCountry: string;
-  handleCountryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleCountryChange: (event: SelectChangeEvent) => void;
 }
 
 const CountrySelect: React.FC<CountrySelectProps> = ({
   handleCountryChange,
 }) => {
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl>
-        <InputLabel variant="standard" htmlFor="uncontrolled-native">
-          Country
-        </InputLabel>
-        <NativeSelect
-          defaultValue={countries["US"]}
-          inputProps={{
-            name: "country",
-            id: "uncontrolled-native",
-          }}
-          onChange={handleCountryChange}
-        >
-          {Object.entries(countries).map(([code, name]) => (
-            <option key={code} value={name}>
-              {name}
-            </option>
-          ))}
-        </NativeSelect>
-      </FormControl>
-    </Box>
+    <FormControl sx={{ maxWidth: "fit-content" }}>
+      <InputLabel
+        sx={{
+          color: COLOUR,
+          "&.Mui-focused": {
+            color: COLOUR,
+          },
+        }}
+        id="select-country-autowidth"
+      >
+        Country
+      </InputLabel>
+      <Select
+        defaultValue={countries["US"]}
+        label="country"
+        autoWidth
+        id="select-country-autowidth"
+        variant="outlined"
+        onChange={handleCountryChange}
+        sx={{
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLOUR,
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLOUR,
+          },
+        }}
+      >
+        {Object.entries(countries).map(([code, name]) => (
+          <MenuItem key={code} value={name}>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
