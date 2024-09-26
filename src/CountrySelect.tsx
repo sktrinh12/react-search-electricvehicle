@@ -22,10 +22,13 @@ const CountrySelect: React.FC<CountrySelectProps> = ({
           "&.Mui-focused": {
             color: COLOUR,
           },
+          paddingLeft: "4px",
+          paddingRight: "4px",
+          backgroundColor: "white",
         }}
         id="select-country-autowidth"
       >
-        Country
+        Ship to Country
       </InputLabel>
       <Select
         defaultValue={countries["US"]}
