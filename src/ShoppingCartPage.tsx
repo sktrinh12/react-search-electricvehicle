@@ -9,7 +9,8 @@ import Stack from "@mui/material/Stack";
 import BackButton from "./BackButton";
 import { shippingRates } from "./data";
 import CountrySelect from "./CountrySelect";
-import {formatCurrency} from "./functions"
+import { formatCurrency } from "./functions";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { COLOUR } from "./Colour";
 
 const Cart: React.FC = () => {
@@ -42,13 +43,17 @@ const Cart: React.FC = () => {
       0,
     );
     setSubtotal(subtotal);
-    const newTotalQuantity = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
+    const newTotalQuantity = updatedCart.reduce(
+      (acc, item) => acc + item.quantity,
+      0,
+    );
     setTotalQuantity(newTotalQuantity);
-    const shippingCost = calculateShippingCost(selectedCountry) * newTotalQuantity;
+    const shippingCost =
+      calculateShippingCost(selectedCountry) * newTotalQuantity;
     setShippingCost(shippingCost);
     const tax = subtotal * 0.1;
     setEstimatedTax(tax); // Assume 10% tax
-    setTotalPrice(subtotal+shippingCost+tax);
+    setTotalPrice(subtotal + shippingCost + tax);
   };
 
   const calculateShippingCost = (country: string): number => {
@@ -58,7 +63,7 @@ const Cart: React.FC = () => {
     return rate.baseRate * rate.weightMultiplier;
   };
 
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCountryChange = (event: SelectChangeEvent) => {
     const country = event.target.value;
     setSelectedCountry(country);
     const newShippingCost = calculateShippingCost(country);
