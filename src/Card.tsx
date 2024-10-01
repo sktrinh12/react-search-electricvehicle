@@ -58,6 +58,7 @@ const CarCard: React.FC<CarCardProps> = ({ result }) => {
           {result.brand} {result.model}
         </Typography>
         <Typography variant="body2">{`Year: ${result.year}`}</Typography>
+        <Typography variant="body2">{`Model: ${result.model_type}`}</Typography>
         <Typography variant="h4" color="text.primary">
           {formatCurrency(result.price)}
         </Typography>
