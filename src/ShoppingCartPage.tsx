@@ -11,10 +11,13 @@ import { shippingRates } from "./data";
 import CountrySelect from "./CountrySelect";
 import { formatCurrency } from "./functions";
 import { SelectChangeEvent } from "@mui/material/Select";
+import EmptyCartButton from "./EmptyCart";
+import ModalEmptyCart from "./ModalEmptyCart";
 import { COLOUR } from "./Colour";
 
 const Cart: React.FC = () => {
   const { cart, setCart } = useCart();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [estimatedTax, setEstimatedTax] = useState<number>(0);
@@ -35,6 +38,10 @@ const Cart: React.FC = () => {
 
   const handleBack = () => {
     navigate("/");
+  };
+
+  const handleEmptyCart = () => {
+    setModalOpen(true);
   };
 
   const calculateTotal = (updatedCart: CartItem[]) => {
@@ -92,6 +99,11 @@ const Cart: React.FC = () => {
 
   return (
     <>
+      <ModalEmptyCart
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        calculateTotal={calculateTotal}
+      />
       <Grid
         container
         alignItems="center"
@@ -106,14 +118,17 @@ const Cart: React.FC = () => {
           <Grid container alignItems="center">
             {/* Stacked sub-caption (Cars and Qty) */}
             <Grid item>
-              <Stack spacing={1}>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography variant="body1">Types of Cars:</Typography>
-                  <Chip label={totalCars} variant="outlined" />
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography variant="body1">Total Qty:</Typography>
-                  <Chip label={totalQuantity} variant="outlined" />
+              <Stack direction="row" spacing={2} alignItems="center">
+                <EmptyCartButton handleEmptyCart={handleEmptyCart} />
+                <Stack spacing={1}>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Typography variant="body1">Types of Cars:</Typography>
+                    <Chip label={totalCars} variant="outlined" />
+                  </Stack>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Typography variant="body1">Total Qty:</Typography>
+                    <Chip label={totalQuantity} variant="outlined" />
+                  </Stack>
                 </Stack>
               </Stack>
             </Grid>
@@ -145,6 +160,9 @@ const Cart: React.FC = () => {
                     <Grid item xs={8}>
                       <Typography variant="h6">{item.name}</Typography>
                       <Typography variant="body1">
+                        Model: {item.model}
+                      </Typography>
+                      <Typography variant="body1">
                         Price: {formatCurrency(item.price)}
                       </Typography>
                       <Typography variant="body1">
@@ -168,7 +186,7 @@ const Cart: React.FC = () => {
             </Grid>
           ))}
           <Grid container sx={{ padding: 2 }}>
-            <Grid item xs={6} spacing={2}>
+            <Grid item xs={6}>
               <Stack spacing={2}>
                 <CountrySelect
                   selectedCountry={selectedCountry}
