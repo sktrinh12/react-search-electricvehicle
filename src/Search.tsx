@@ -7,6 +7,7 @@ import FilterPanel from "./FilterPanel";
 import Pagination from "./Pagination";
 import Loading from "./Loading";
 import ShoppingCartHeader from "./ShoppingCartHeader";
+import { modelTypes } from "./data";
 
 // PA = POWER AUTOMATE
 const PA_BACKEND_CAR_URL = process.env.REACT_APP_PA_BACKEND_CAR_URL;
@@ -21,6 +22,7 @@ const Search: React.FC = () => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 200000]);
   const [yearRange, setYearRange] = useState<number[]>([2000, 2024]);
   const [brand, setBrand] = useState<string | "">("");
+  const [model, setModel] = useState<string | "">("");
   const [totalPages, setTotalPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [carBrands, setCarBrands] = useState<string[]>([]);
@@ -29,6 +31,10 @@ const Search: React.FC = () => {
 
   const handleSortBrand = (event: SelectChangeEvent<string>) => {
     setBrand(event.target.value as string);
+  };
+
+  const handleSortModels = (event: SelectChangeEvent<string>) => {
+    setModel(event.target.value as string);
   };
 
   const handleSortOrderChange = (event: SelectChangeEvent<string>) => {
@@ -78,7 +84,8 @@ const Search: React.FC = () => {
           (car) => car.price >= priceRange[0] && car.price <= priceRange[1],
         )
         .filter((car) => car.year >= yearRange[0] && car.year <= yearRange[1])
-        .filter((car) => (brand ? car.brand === brand : true));
+        .filter((car) => (brand ? car.brand === brand : true))
+        .filter((car) => (model ? car.model_type === model : true));
 
       // Sorting based on the selected sortOrder
       switch (sortOrder) {
@@ -107,7 +114,7 @@ const Search: React.FC = () => {
       setSearchResults(paginatedResults);
       setTotalPages(Math.ceil(filteredResults.length / cardsPerPage));
     }
-  }, [brand, priceRange, yearRange, currentPage, carData, sortOrder]);
+  }, [brand, priceRange, yearRange, currentPage, carData, sortOrder, model]);
 
   // fetch unique car brands
   useEffect(() => {
@@ -147,10 +154,13 @@ const Search: React.FC = () => {
       <Grid container spacing={2}>
         <FilterPanel
           brand={brand}
+          model={model}
           sortOrder={sortOrder}
           priceRange={priceRange}
           yearRange={yearRange}
           carBrands={carBrands}
+          modelTypes={modelTypes}
+          handleSortModels={handleSortModels}
           handleSortOrderChange={handleSortOrderChange}
           handleSortBrand={handleSortBrand}
           handlePriceChange={handlePriceChange}
