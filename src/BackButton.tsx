@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { COLOUR, SELECT_COLOUR2 } from "./Colour";
 
 interface BackButtonProps {
   handleBack: () => void; // Function with no parameters and no return value
@@ -14,11 +15,11 @@ const BackButton: React.FC<BackButtonProps> = ({ handleBack }) => {
         paddingY: 1.5,
         marginTop: 2,
         marginBottom: 3,
-        borderColor: "#17292e", // Border color for the outlined variant
-        color: "#17292e", // Text color
+        borderColor: COLOUR,
+        color: COLOUR,
         "&:hover": {
-          borderColor: "#17292e", // Border color on hover
-          backgroundColor: "#ecf0f1", // Background color on hover
+          borderColor: COLOUR,
+          backgroundColor: SELECT_COLOUR2,
         },
       }}
       variant="outlined"
