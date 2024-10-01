@@ -1,15 +1,19 @@
 import React from "react";
 import { SelectChangeEvent, Slider, Typography, Grid } from "@mui/material";
-import { FormSortOrder, FormSortBy } from "./Forms";
+import { FormSortOrder, FormSortBy, FormModelType } from "./Forms";
+import { COLOUR } from "./Colour";
 
 type FilterPanelProps = {
   brand: string;
   sortOrder: string;
+  model: string;
   priceRange: number[];
   yearRange: number[];
   carBrands: string[];
+  modelTypes: string[];
   handleSortBrand: (event: SelectChangeEvent<string>) => void;
   handleSortOrderChange: (event: SelectChangeEvent<string>) => void;
+  handleSortModels: (event: SelectChangeEvent<string>) => void;
   handlePriceChange: (event: Event, newValue: number | number[]) => void;
   handleYearChange: (event: Event, newValue: number | number[]) => void;
 };
@@ -17,9 +21,12 @@ type FilterPanelProps = {
 const FilterPanel: React.FC<FilterPanelProps> = ({
   brand,
   sortOrder,
+  model,
   priceRange,
   yearRange,
   carBrands,
+  modelTypes,
+  handleSortModels,
   handleSortOrderChange,
   handleSortBrand,
   handlePriceChange,
@@ -33,6 +40,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         carBrands={carBrands}
         handleSortBrand={handleSortBrand}
       />
+
+      <Typography gutterBottom>Model</Typography>
+      <FormModelType
+        model={model}
+        modelTypes={modelTypes}
+        handleSortModels={handleSortModels}
+      />
+
       <Typography gutterBottom>Order</Typography>
       <FormSortOrder
         sortOrder={sortOrder}
@@ -49,16 +64,16 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         sx={{
           marginBottom: 2,
           marginLeft: "6px",
-          color: "#f57b18", // Set the color of the slider
+          color: COLOUR,
           "& .MuiSlider-thumb": {
-            backgroundColor: "#f57b18", // Thumb (the circle) color
+            backgroundColor: COLOUR,
             "&:hover, &.Mui-focusVisible": {
-              boxShadow: "0px 0px 0px 8px rgba(245, 123, 24, 0.16)", // Orange glow on hover
-              backgroundColor: "#f57b18", // Maintain the orange color on hover
+              boxShadow: "0px 0px 0px 8px rgba(245, 123, 24, 0.16)",
+              backgroundColor: COLOUR,
             },
           },
           "& .MuiSlider-track": {
-            backgroundColor: "#f57b18", // Track (filled portion) color
+            backgroundColor: COLOUR,
           },
           "& .MuiSlider-rail": {
             backgroundColor: "#ddd", // Rail (unfilled portion) color
@@ -75,16 +90,16 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         max={2024}
         sx={{
           marginLeft: "6px",
-          color: "#f57b18", // Set the color of the slider
+          color: COLOUR,
           "& .MuiSlider-thumb": {
-            backgroundColor: "#f57b18",
+            backgroundColor: COLOUR,
             "&:hover, &.Mui-focusVisible": {
               boxShadow: "0px 0px 0px 8px rgba(245, 123, 24, 0.16)",
-              backgroundColor: "#f57b18",
+              backgroundColor: COLOUR,
             },
           },
           "& .MuiSlider-track": {
-            backgroundColor: "#f57b18",
+            backgroundColor: COLOUR,
           },
           "& .MuiSlider-rail": {
             backgroundColor: "#ddd",
