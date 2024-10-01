@@ -11,7 +11,7 @@ import { shippingRates } from "./data";
 import CountrySelect from "./CountrySelect";
 import { formatCurrency } from "./functions";
 import { SelectChangeEvent } from "@mui/material/Select";
-import EmptyCartButton from "./EmptyCart";
+import EmptyCartButton from "./EmptyCartButton";
 import ModalEmptyCart from "./ModalEmptyCart";
 import { COLOUR } from "./Colour";
 
