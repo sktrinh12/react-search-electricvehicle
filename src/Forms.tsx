@@ -13,6 +13,12 @@ interface FormSortByProps {
   handleSortBrand: (event: SelectChangeEvent<string>) => void;
 }
 
+interface FormModelTypeProps {
+  model: string;
+  modelTypes: string[];
+  handleSortModels: (event: SelectChangeEvent<string>) => void;
+}
+
 interface FormSortOrderProps {
   sortOrder: string;
   handleSortOrderChange: (event: SelectChangeEvent<string>) => void;
@@ -26,8 +32,7 @@ const FormSortBy: React.FC<FormSortByProps> = ({
   return (
     <FormControl fullWidth sx={{ marginBottom: 2 }}>
       <Select
-        labelId="sort-field-label"
-        id="sort-field"
+        id="sort-brand"
         value={brand as string}
         onChange={handleSortBrand}
         MenuProps={{
@@ -75,7 +80,6 @@ const FormSortOrder: React.FC<FormSortOrderProps> = ({
   return (
     <FormControl fullWidth sx={{ marginBottom: 2 }}>
       <Select
-        labelId="sort-order-label"
         id="sort-order"
         value={sortOrder}
         onChange={handleSortOrderChange}
@@ -114,4 +118,54 @@ const FormSortOrder: React.FC<FormSortOrderProps> = ({
   );
 };
 
-export { FormSortBy, FormSortOrder };
+
+const FormModelType: React.FC<FormModelTypeProps> = ({
+  model,
+  modelTypes,
+  handleSortModels,
+}) => {
+  return (
+    <FormControl fullWidth sx={{ marginBottom: 2 }}>
+      <Select
+        id="sort-model"
+        value={model as string}
+        onChange={handleSortModels}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              "& .MuiMenuItem-root": {
+                "&.Mui-selected": {
+                  backgroundColor: SELECT_COLOUR2,
+                  "&:hover": {
+                    backgroundColor: SELECT_COLOUR2,
+                  },
+                },
+                "&:hover": {
+                  backgroundColor: SELECT_COLOUR2,
+                },
+              },
+            },
+          },
+        }}
+        sx ={{
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLOUR,
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: COLOUR,
+          },
+        }}
+      >
+        {/* Option to show all brands */}
+        <MenuItem value="">All Models</MenuItem>{" "}
+        {modelTypes.map((model: string, index: number) => (
+          <MenuItem key={index} value={model}>
+            {model}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+};
+
+export { FormSortBy, FormSortOrder, FormModelType};
