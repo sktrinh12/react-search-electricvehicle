@@ -10,6 +10,7 @@ export type Car = {
   top_speed: number;
   year: number;
   image: string;
+  model_type: string;
 };
 
 export type CarCardProps = {
@@ -20,6 +21,7 @@ export interface CartItem {
   id: number;
   name: string;
   image: string;
+  model: string;
   price: number;
   quantity: number;
 }
