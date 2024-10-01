@@ -68,11 +68,12 @@ const CarDetails = () => {
           : item,
       );
     } else {
-      const { id, brand, model, price, image } = car;
+      const { id, brand, model, price, image, model_type } = car;
       const newCartItem: CartItem = {
         id: id,
         name: `${brand} ${model}`,
         price: price,
+        model: model_type,
         image: image,
         quantity: 1, // Default quantity
       };
