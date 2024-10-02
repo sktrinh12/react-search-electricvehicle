@@ -41,7 +41,9 @@ const Cart: React.FC = () => {
   };
 
   const handleEmptyCart = () => {
-    setModalOpen(true);
+    if (cart.length > 0) {
+      setModalOpen(true);
+    }
   };
 
   const calculateTotal = (updatedCart: CartItem[]) => {
