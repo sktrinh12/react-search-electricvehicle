@@ -181,6 +181,7 @@ const Search: React.FC = () => {
             ))}
           </Grid>
           <Pagination
+            loading={loading}
             totalPages={totalPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
