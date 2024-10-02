@@ -223,7 +223,7 @@ const Cart: React.FC = () => {
           </Grid>
         </Grid>
       ) : (
-        <Typography variant="h6">Your cart is empty.</Typography>
+        <Typography variant="h6">Your shopping cart 🛒 is empty 😞.</Typography>
       )}
     </>
   );
