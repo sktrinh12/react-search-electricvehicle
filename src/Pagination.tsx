@@ -6,22 +6,27 @@ import {
   KeyboardDoubleArrowLeftRounded,
   KeyboardDoubleArrowRightRounded,
 } from "@mui/icons-material";
+import Loading from "./Loading"
 import { BACKGROUND_COLOUR, SELECT_COLOUR, COLOUR } from "./Colour";
 
 interface PaginationProps {
+  loading: boolean;
   totalPages: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
+  loading,
   totalPages,
   currentPage,
   setCurrentPage,
 }) => {
   return (
     <>
-      {totalPages === 0 ? (
+     {loading ? (
+        <Loading loading={loading} />
+      ) : totalPages === 0 ? (
         <Typography variant="h5" color={COLOUR} align="center" mt={4}>
           It looks like we don't have any cars that match. Try modifying your
           search. 🚙😄
